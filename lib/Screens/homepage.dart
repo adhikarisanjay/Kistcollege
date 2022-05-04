@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //if else condition
               showsvg == true
                   ? Container(
                       height: MediaQuery.of(context).size.height * 0.1,
@@ -47,8 +48,10 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  //icon button
                   ElevatedButton.icon(
                       onPressed: () {
+                        //change variable
                         setState(() {
                           showsvg = true;
                           counter++;
@@ -67,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.remove),
                       label: const Text("Decrease")),
 
+//button
                   // ElevatedButton(
                   //   style: ButtonStyle(
                   //       padding: MaterialStateProperty.all(
