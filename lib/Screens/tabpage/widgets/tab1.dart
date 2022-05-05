@@ -16,6 +16,7 @@ class _Tab1State extends State<Tab1> {
           physics: BouncingScrollPhysics(),
           itemCount: studentslist.length,
           itemBuilder: (context, index) {
+            print(index);
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -27,11 +28,13 @@ class _Tab1State extends State<Tab1> {
                       ),
                       subtitle: Text('${studentslist[index].phone}'),
                       leading: CircleAvatar(
-                          backgroundColor: Colors.blue,
-                          child: Text(
-                            '${studentslist[index].name?.substring(0, 1)}',
-                            style: const TextStyle(color: Colors.white),
-                          )),
+                        backgroundColor: Colors.blue,
+                        child: Image.asset("${studentslist[index].image}"),
+                        // child: Text(
+                        //   '${studentslist[index].name?.substring(0, 1)}',
+                        //   style: const TextStyle(color: Colors.white),
+                        // )
+                      ),
                       onTap: () => {})
                 ],
               ),

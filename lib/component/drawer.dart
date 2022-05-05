@@ -41,8 +41,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               // Navigator.of(context).pushAndRemoveUntil(
               //     MaterialPageRoute(builder: (context) => TabBarPage()),
               //     (route) => false);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => TabBarPage())));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => TabBarPage(
+                            title: "Page2",
+                          ))));
             },
             leading: Icon(Icons.home),
             title: const Text(

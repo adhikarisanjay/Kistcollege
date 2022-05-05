@@ -3,7 +3,8 @@ import 'package:kist/Screens/tabpage/widgets/tab1.dart';
 import 'package:kist/Screens/tabpage/widgets/tab2.dart';
 
 class TabBarPage extends StatefulWidget {
-  const TabBarPage({Key? key}) : super(key: key);
+  final String? title;
+  const TabBarPage({Key? key, this.title}) : super(key: key);
 
   @override
   State<TabBarPage> createState() => _TabBarPageState();
@@ -20,7 +21,7 @@ class _TabBarPageState extends State<TabBarPage> {
             length: 2,
             child: Scaffold(
               appBar: AppBar(
-                title: Text("Tab Page"),
+                title: Text("${widget.title}"),
                 bottom: const TabBar(
                   tabs: [
                     Tab(
