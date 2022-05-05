@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kist/component/drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
           "Kist",
           style: TextStyle(color: Colors.black),
         )),
+        endDrawer: DrawerWidget(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
