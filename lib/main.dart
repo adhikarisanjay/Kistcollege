@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Kist test project",
       home: HomePage(),
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: const TextTheme(bodyText1: TextStyle(color: Colors.red)),
         primarySwatch: Colors.blue,

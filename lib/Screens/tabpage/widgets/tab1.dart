@@ -13,6 +13,7 @@ class _Tab1State extends State<Tab1> {
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           itemCount: studentslist.length,
           itemBuilder: (context, index) {
             return Padding(
