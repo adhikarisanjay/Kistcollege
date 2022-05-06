@@ -12,6 +12,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int counter = 0;
   bool showsvg = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("debugging");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -29,7 +29,9 @@ class _Tab1State extends State<Tab1> {
                       subtitle: Text('${studentslist[index].phone}'),
                       leading: CircleAvatar(
                         backgroundColor: Colors.blue,
-                        child: Image.asset("${studentslist[index].image}"),
+                        child: Image.asset(
+                          "${studentslist[index].image}",
+                        ),
                         // child: Text(
                         //   '${studentslist[index].name?.substring(0, 1)}',
                         //   style: const TextStyle(color: Colors.white),
