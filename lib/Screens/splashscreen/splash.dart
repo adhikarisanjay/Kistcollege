@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kist/Screens/homepage.dart';
 import 'package:kist/component/buttonnavbar.dart';
+import 'package:kist/component/buttonnavbarnotch.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   navigationPage() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => ButtonNavBar()),
+        MaterialPageRoute(builder: (context) => ButtomNavBar1()),
         (route) => false);
   }
 
