@@ -1,4 +1,4 @@
-package com.example.kist
+package co.kist.edu.np
 
 import io.flutter.embedding.android.FlutterActivity
 

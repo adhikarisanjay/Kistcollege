@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "903798189536",
+    "firebase_url": "https://summit-e92f2.firebaseio.com",
+    "project_id": "summit-e92f2",
+    "storage_bucket": "summit-e92f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903798189536:android:6b4cd2cd6d075f99348f85",
+        "android_client_info": {
+          "package_name": "co.kist.edu.np"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903798189536-nrbu2hqj7hpuipj3td9iuisa33afiro1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9PwF6umhJyFKhIsAC662AdYs_XNIwEo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903798189536-nrbu2hqj7hpuipj3td9iuisa33afiro1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903798189536:android:6762818e6f7f41a2348f85",
+        "android_client_info": {
+          "package_name": "com.cellapp.mapase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903798189536-nrbu2hqj7hpuipj3td9iuisa33afiro1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9PwF6umhJyFKhIsAC662AdYs_XNIwEo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903798189536-nrbu2hqj7hpuipj3td9iuisa33afiro1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
