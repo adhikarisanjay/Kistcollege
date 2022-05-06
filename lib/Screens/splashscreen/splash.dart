@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kist/Screens/homepage.dart';
+import 'package:kist/component/buttonnavbar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,7 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   navigationPage() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+        MaterialPageRoute(builder: (context) => ButtonNavBar()),
+        (route) => false);
   }
 
   @override
