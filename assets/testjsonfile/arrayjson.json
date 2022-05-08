@@ -1,0 +1,19 @@
+[
+    {
+    "id": 0,
+    "name": "NexMart - Casual Sneakers",
+    "category": "NOP",
+    "imageUrl": "https://m.media-amazon.com/images/I/81S-ekaE+vS._AC_UL320_.jpg",
+    "oldPrice": "1899",
+    "price": "799"
+    },
+    {
+    "id": 1,
+    "name": "Asian - Men Bouncer",
+    "category": "Men",
+    "oldPrice": "999",
+    "imageUrl": "https://m.media-amazon.com/images/I/61hMQOHmEIL._AC_UL320_.jpg",
+    "price": "719"
+    }
+   
+    ]

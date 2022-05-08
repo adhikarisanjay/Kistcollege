@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kist/Services/Apiconnectservices.dart';
 import 'package:kist/component/drawer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
     checksharedvalue();
     drawer = DrawerWidget(callback: callbackfunction);
+    ApiConnectService().fetchSamplejson();
     super.initState();
   }
 
