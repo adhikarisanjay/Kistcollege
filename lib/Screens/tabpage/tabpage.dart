@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kist/Screens/tabpage/widgets/tab1.dart';
 import 'package:kist/Screens/tabpage/widgets/tab2.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TabBarPage extends StatefulWidget {
   final String? title;
@@ -22,13 +23,13 @@ class _TabBarPageState extends State<TabBarPage> {
             child: Scaffold(
               appBar: AppBar(
                 title: Text("${widget.title}"),
-                bottom: const TabBar(
+                bottom: TabBar(
                   tabs: [
                     Tab(
                       text: "Listview",
                     ),
                     Tab(
-                      text: "tab2",
+                      text: "tab2".tr(),
                     ),
                   ],
                 ),
