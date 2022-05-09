@@ -40,8 +40,6 @@ class _HomePageState extends State<HomePage> {
 
   checksharedvalue() async {
     final pref = await SharedPreferences.getInstance();
-    var indexvalue = pref.getInt("lngindex");
-    print("index= $indexvalue");
   }
 
   @override

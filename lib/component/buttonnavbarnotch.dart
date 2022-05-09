@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kist/Screens/Samplearrayjson/jsonarray.dart';
 import 'package:kist/Screens/homepage.dart';
+import 'package:kist/Screens/samplejson/samplejson.dart';
 import 'package:kist/Screens/tabpage/tabpage.dart';
 import 'package:kist/component/colors.dart';
+import 'package:kist/modal/samplejson.dart';
 
 class ButtomNavBar1 extends StatefulWidget {
   const ButtomNavBar1({Key? key}) : super(key: key);
@@ -68,15 +71,20 @@ class _ButtomNavBar1State extends State<ButtomNavBar1> {
                       setState(() {
                         currentindex = 2;
                         index = 2;
+                        currentpage = SampleArray();
                       });
                     },
                     child: columnwidget(2, Icons.cloud_circle, "page3", color)),
                 MaterialButton(
                     // minWidth: 40,
                     onPressed: () {
-                      setState(() {});
+                      setState(() {
+                        currentindex = 3;
+                        currentpage = SampleJSonPage();
+                      });
                     },
-                    child: columnwidget(3, Icons.download, "page4", color)),
+                    child:
+                        columnwidget(3, Icons.download, "SampleJson", color)),
               ],
             ),
           ),

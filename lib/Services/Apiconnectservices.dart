@@ -12,4 +12,13 @@ class ApiConnectService {
     return list;
     // return
   }
+
+  Future<List<SampleJson>> fetchSamplejsonArray() async {
+    var jsondata =
+        await rootBundle.loadString('assets/testjsonfile/arrayjson.json');
+    List<dynamic> listdata = jsonDecode(jsondata);
+    var list = listdata.map((e) => SampleJson.fromMap(e)).toList();
+    return list;
+    // return
+  }
 }

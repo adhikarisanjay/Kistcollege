@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kist/Screens/homepage.dart';
 import 'package:kist/Screens/tabpage/tabpage.dart';
+import 'package:kist/modal/samplejson.dart';
 
 class ButtonNavBar extends StatefulWidget {
   const ButtonNavBar({Key? key}) : super(key: key);
@@ -40,6 +41,10 @@ class _ButtonNavBarState extends State<ButtonNavBar> {
       _selectedIndex = index;
       if (index == 1) {
         currentpage = TabBarPage();
+      } else if (index == 2) {
+        setState(() {
+          currentpage = SampleJson();
+        });
       } else {
         currentpage = HomePage();
       }

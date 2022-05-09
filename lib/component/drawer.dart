@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
+import 'package:kist/Screens/auth/loginpage.dart';
 import 'package:kist/Screens/tabpage/tabpage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:intl/intl.dart';
@@ -26,9 +27,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final pref = await SharedPreferences.getInstance();
     int? indexvalue = pref.getInt("lngindex");
     print("index= $indexvalue");
-    setState(() {
-      selectedindex = indexvalue!;
-    });
+
+    if (indexvalue != null || indexvalue != '') {
+      setState(() {
+        selectedindex = indexvalue!;
+      });
+    }
   }
 
   storevariables(index) async {
@@ -109,6 +113,20 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             leading: Icon(Icons.home),
             title: const Text(
               "Page2",
+              style: TextStyle(color: Colors.black),
+            ),
+            trailing: Icon(Icons.abc),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pop(context);
+
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => const LoginPage())));
+            },
+            leading: Icon(Icons.login),
+            title: const Text(
+              "Login",
               style: TextStyle(color: Colors.black),
             ),
             trailing: Icon(Icons.abc),
