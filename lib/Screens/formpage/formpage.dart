@@ -1,22 +1,25 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:kist/Screens/auth/signuppage.dart';
 import 'package:kist/Services/firebaseservices.dart';
-import 'package:kist/component/colors.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class Storeform extends StatefulWidget {
+  const Storeform({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Storeform> createState() => _StoreformState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+enum ProfileValidateEnum { email, phoneNumber }
+
+class _StoreformState extends State<Storeform> {
   final _formkey = GlobalKey<FormState>();
+  var name = TextEditingController();
   var email = TextEditingController();
-  var password = TextEditingController();
+  var phone = TextEditingController();
+  var address = TextEditingController();
+
   bool obscureTextstatus = true;
   var buttonstate = ButtonState.idle;
 
@@ -30,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Login page")),
+      appBar: AppBar(title: Text("Form page")),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Column(
@@ -45,8 +48,10 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Enter Your Email",
                           prefixIcon: Icon(Icons.email)),
                       validator: (value) {
-                        if (value!.isEmpty) {
-                          return "This field is required";
+                        if (EmailValidator.validate(value!)) {
+                          return null;
+                        } else {
+                          return "Please enter a valid email";
                         }
                       },
 
@@ -56,25 +61,42 @@ class _LoginPageState extends State<LoginPage> {
                       height: 10,
                     ),
                     TextFormField(
-                      controller: password,
-                      obscureText: obscureTextstatus,
+                      controller: name,
+                      decoration: const InputDecoration(
+                          hintText: "Enter Your name",
+                          prefixIcon: Icon(Icons.person)),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This field is required";
+                        }
+                      },
+
+                      // The validator receives the text that the user has entered.
+                    ),
+                    TextFormField(
+                      controller: phone,
+                      keyboardType: TextInputType.number,
+
+                      decoration: const InputDecoration(
+                        hintText: "Enter Your Phone",
+                        prefixIcon: Icon(Icons.phone),
+                      ),
+                      validator: (value) {
+                        if (value!.length == 10) {
+                          return null;
+                        } else {
+                          return "please enter valid number";
+                        }
+                      },
+
+                      // The validator receives the text that the user has entered.
+                    ),
+                    TextFormField(
+                      controller: address,
                       decoration: InputDecoration(
-                          hintStyle: TextStyle(fontSize: 10),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!)),
-                          hintText: "Enter Your Password",
-                          prefixIcon: Icon(Icons.password),
-                          suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  obscureTextstatus == false
-                                      ? obscureTextstatus = true
-                                      : obscureTextstatus = false;
-                                });
-                              },
-                              child: obscureTextstatus == true
-                                  ? Icon(Icons.lock)
-                                  : Icon(Icons.lock_open))),
+                        hintText: "Enter Your Address",
+                        prefixIcon: Icon(Icons.location_city),
+                      ),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "This field is required";
@@ -84,42 +106,20 @@ class _LoginPageState extends State<LoginPage> {
                       // The validator receives the text that the user has entered.
                     ),
                     const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      children: [
-                        const Text("Don't have an Account?  "),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignUpPage()));
-                          },
-                          child: Text(
-                            "SignUp",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: primary),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     ProgressButton.icon(
                         iconedButtons: {
                           ButtonState.idle: IconedButton(
                               text: "Send",
-                              icon: const Icon(Icons.send, color: Colors.white),
+                              icon: Icon(Icons.send, color: Colors.white),
                               color: Colors.deepPurple.shade500),
                           ButtonState.loading: IconedButton(
                               text: "Loading",
                               color: Colors.deepPurple.shade700),
                           ButtonState.fail: IconedButton(
                               text: "Failed",
-                              icon:
-                                  const Icon(Icons.cancel, color: Colors.white),
+                              icon: Icon(Icons.cancel, color: Colors.white),
                               color: Colors.red.shade300),
                           ButtonState.success: IconedButton(
                               text: "Success",
@@ -135,19 +135,17 @@ class _LoginPageState extends State<LoginPage> {
                               buttonstate = ButtonState.loading;
                             });
                             FirbaseServices()
-                                .Login(email.text, password.text)
+                                .storeformwithuserid(email.text, name.text,
+                                    phone.text, address.text)
                                 .then((value) => {
-                                      print("loginresponse$value"),
                                       if (value == true)
                                         {
                                           setState(() {
                                             buttonstate = ButtonState.success;
-                                          }),
-                                          setloginstatus()
+                                          })
                                         }
                                       else
                                         {
-                                          snackbar("Loginfailed"),
                                           setState(() {
                                             buttonstate = ButtonState.fail;
                                           })
@@ -163,26 +161,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  setloginstatus() async {
-    final pref = await SharedPreferences.getInstance();
-    pref.setBool("loginstatus", true);
-  }
-
-  snackbar(message) {
-    final snackBar = SnackBar(
-      content: Text('$message'),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          // Some code to undo the change.
-        },
-      ),
-    );
-
-    // Find the ScaffoldMessenger in the widget tree
-    // and use it to show a SnackBar.
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

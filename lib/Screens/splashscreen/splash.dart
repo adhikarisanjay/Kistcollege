@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kist/Screens/auth/loginpage.dart';
 import 'package:kist/Screens/homepage.dart';
 import 'package:kist/component/buttonnavbar.dart';
 import 'package:kist/component/buttonnavbarnotch.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,11 +15,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool? loginstatus;
   @override
   void initState() {
     // TODO: implement initState
+
+    checkloginstatus();
     super.initState();
     timer();
+  }
+
+  checkloginstatus() async {
+    final pref = await SharedPreferences.getInstance();
+    setState(() {
+      loginstatus = pref.getBool("loginstatus");
+    });
   }
 
   timer() {
@@ -26,9 +38,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigationPage() {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => ButtomNavBar1()),
-        (route) => false);
+    if (loginstatus == true) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => ButtomNavBar1()),
+          (route) => false);
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginPage()),
+          (route) => false);
+    }
   }
 
   @override

@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kist/Services/Apiconnectservices.dart';
+import 'package:kist/Services/firebaseservices.dart';
 import 'package:kist/component/drawer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,10 +24,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     print("debugging");
-
+    FirbaseServices().update();
     checksharedvalue();
     drawer = DrawerWidget(callback: callbackfunction);
-    ApiConnectService().fetchSamplejson();
     super.initState();
   }
 
@@ -47,11 +48,11 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
           key: _scaffoldKey,
-          // appBar: AppBar(
-          //     title: Text(
-          //   "Kist",
-          //   style: TextStyle(color: Colors.black),
-          // )),
+          appBar: AppBar(
+              title: Text(
+            "Kist",
+            style: TextStyle(color: Colors.black),
+          )),
           endDrawer: DrawerWidget(
             callback: callbackfunction,
           ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:kist/Screens/auth/loginpage.dart';
+import 'package:kist/Screens/formpage/formpage.dart';
 import 'package:kist/Screens/tabpage/tabpage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:intl/intl.dart';
+import 'package:kist/Services/storageservice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -21,6 +23,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   void initState() {
     super.initState();
     getsharedvalue();
+    fetchloginstatus();
   }
 
   getsharedvalue() async {
@@ -28,11 +31,22 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     int? indexvalue = pref.getInt("lngindex");
     print("index= $indexvalue");
 
-    if (indexvalue != null || indexvalue != '') {
+    if (indexvalue != null) {
       setState(() {
-        selectedindex = indexvalue!;
+        selectedindex = indexvalue;
       });
     }
+  }
+
+  bool? loginstatus;
+
+  fetchloginstatus() async {
+    var status = await Storage().getLoginstatus();
+
+    setState(() {
+      loginstatus = status;
+    });
+    print("loginstatusdrawer  $loginstatus");
   }
 
   storevariables(index) async {
@@ -111,8 +125,24 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           ))));
             },
             leading: Icon(Icons.home),
-            title: const Text(
-              "Page2",
+            title: Text(
+              "page2".tr(),
+              style: TextStyle(color: Colors.black),
+            ),
+            trailing: Icon(Icons.list),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pop(context);
+              // Navigator.of(context).pushAndRemoveUntil(
+              //     MaterialPageRoute(builder: (context) => TabBarPage()),
+              //     (route) => false);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => const Storeform())));
+            },
+            leading: Icon(Icons.home),
+            title: Text(
+              "page3".tr(),
               style: TextStyle(color: Colors.black),
             ),
             trailing: Icon(Icons.abc),
@@ -124,11 +154,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => const LoginPage())));
             },
-            leading: Icon(Icons.login),
-            title: const Text(
-              "Login",
-              style: TextStyle(color: Colors.black),
-            ),
+            leading:
+                loginstatus == null ? Icon(Icons.login) : Icon(Icons.logout),
+            title: loginstatus == null
+                ? const Text(
+                    "Login",
+                    style: TextStyle(color: Colors.black),
+                  )
+                : Text(
+                    "logout".tr(),
+                    style: TextStyle(color: Colors.black),
+                  ),
             trailing: Icon(Icons.abc),
           )
         ],

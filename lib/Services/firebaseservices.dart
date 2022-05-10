@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -40,6 +41,29 @@ class FirbaseServices {
     User? user = FirebaseAuth.instance.currentUser;
     // user?.updateDisplayName("Sanjay");
     // user?.sendEmailVerification();
-    print(user?.emailVerified);
+    print("verified${user?.emailVerified}");
+  }
+
+  final firestoreInstance = FirebaseFirestore.instance;
+
+  Future<bool> storeformFirebase(email, name, phone, address) async {
+    try {
+      await firestoreInstance.collection("users").add(
+          {"name": name, "phone": phone, "email": email, "address": address});
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> storeformwithuserid(email, name, phone, address) async {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    try {
+      firestoreInstance.collection("users").doc(firebaseUser?.uid).set(
+          {"name": name, "phone": phone, "email": email, "address": address});
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
