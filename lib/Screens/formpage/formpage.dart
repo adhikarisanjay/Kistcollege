@@ -44,7 +44,10 @@ class _StoreformState extends State<Storeform> {
                   children: [
                     TextFormField(
                       controller: email,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           hintText: "Enter Your Email",
                           prefixIcon: Icon(Icons.email)),
                       validator: (value) {
@@ -62,7 +65,10 @@ class _StoreformState extends State<Storeform> {
                     ),
                     TextFormField(
                       controller: name,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           hintText: "Enter Your name",
                           prefixIcon: Icon(Icons.person)),
                       validator: (value) {
@@ -73,11 +79,17 @@ class _StoreformState extends State<Storeform> {
 
                       // The validator receives the text that the user has entered.
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     TextFormField(
                       controller: phone,
                       keyboardType: TextInputType.number,
 
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         hintText: "Enter Your Phone",
                         prefixIcon: Icon(Icons.phone),
                       ),
@@ -91,9 +103,15 @@ class _StoreformState extends State<Storeform> {
 
                       // The validator receives the text that the user has entered.
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     TextFormField(
                       controller: address,
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         hintText: "Enter Your Address",
                         prefixIcon: Icon(Icons.location_city),
                       ),

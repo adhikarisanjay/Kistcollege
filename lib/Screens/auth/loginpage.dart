@@ -41,7 +41,10 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     TextFormField(
                       controller: email,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           hintText: "Enter Your Email",
                           prefixIcon: Icon(Icons.email)),
                       validator: (value) {
@@ -59,6 +62,9 @@ class _LoginPageState extends State<LoginPage> {
                       controller: password,
                       obscureText: obscureTextstatus,
                       decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           hintStyle: TextStyle(fontSize: 10),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey[300]!)),
