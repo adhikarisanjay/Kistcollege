@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:kist/Screens/auth/loginpage.dart';
+import 'package:kist/Screens/firebasedatafetch/firebasedatafetch.dart';
 import 'package:kist/Screens/formpage/formpage.dart';
 import 'package:kist/Screens/tabpage/tabpage.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -150,6 +151,26 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ListTile(
             onTap: () {
               Navigator.pop(context);
+              // Navigator.of(context).pushAndRemoveUntil(
+              //     MaterialPageRoute(builder: (context) => TabBarPage()),
+              //     (route) => false);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const Firbasedatafetch())));
+            },
+            leading: Icon(Icons.home),
+            title: Text(
+              "Firebase data".tr(),
+              style: TextStyle(color: Colors.black),
+            ),
+            trailing: Icon(Icons.list),
+          ),
+
+          //login listtile
+          ListTile(
+            onTap: () {
+              Navigator.pop(context);
 
               Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => const LoginPage())));
@@ -166,7 +187,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     style: TextStyle(color: Colors.black),
                   ),
             trailing: Icon(Icons.abc),
-          )
+          ),
         ],
       ),
     );

@@ -40,7 +40,7 @@ class _ButtomNavBar1State extends State<ButtomNavBar1> {
           clipBehavior: Clip.antiAlias,
           child: Container(
             padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-            height: 60,
+            height: 65,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

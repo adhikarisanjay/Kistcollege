@@ -59,15 +59,15 @@ class _HomePageState extends State<HomePage> {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        _scaffoldKey.currentState!.openEndDrawer();
-                      },
-                      child: Icon(Icons.menu))
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     GestureDetector(
+              //         onTap: () {
+              //           _scaffoldKey.currentState!.openEndDrawer();
+              //         },
+              //         child: Icon(Icons.menu))
+              //   ],
+              // ),
               const SizedBox(
                 height: 80,
               ),

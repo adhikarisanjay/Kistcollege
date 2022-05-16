@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kist/Screens/auth/signuppage.dart';
 import 'package:kist/Services/firebaseservices.dart';
+import 'package:kist/component/buttonnavbarnotch.dart';
 import 'package:kist/component/colors.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
@@ -149,7 +150,13 @@ class _LoginPageState extends State<LoginPage> {
                                           setState(() {
                                             buttonstate = ButtonState.success;
                                           }),
-                                          setloginstatus()
+                                          setloginstatus(),
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ButtomNavBar1()),
+                                                  (route) => false),
                                         }
                                       else
                                         {
