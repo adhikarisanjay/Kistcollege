@@ -14,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirbaseServices().phoneauth();
+    // FirbaseServices().phoneauth();
   }
 
   final _phoneController = TextEditingController();

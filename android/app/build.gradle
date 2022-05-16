@@ -66,4 +66,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile 'com.google.firebase:firebase-messaging:11.0.4'
+
+
 }
