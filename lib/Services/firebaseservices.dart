@@ -33,22 +33,6 @@ class FirbaseServices {
     }
   }
 
-  Future<bool> phoneauth() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    await auth.verifyPhoneNumber(
-        timeout: const Duration(seconds: 15),
-        verificationCompleted: (AuthCredential authCredential) {
-          print(authCredential);
-        },
-        verificationFailed: (FirebaseAuthException authException) {
-          print(authException);
-        },
-        codeAutoRetrievalTimeout: (String verId) {},
-        phoneNumber: '+9779843711649',
-        codeSent: (String verificationId, int? forceResendingToken) {});
-    return true;
-  }
-
   logout() {
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseAuth.instance.signOut();
@@ -97,4 +81,7 @@ class FirbaseServices {
     var userdatalist = userdata.map((e) => Usermodal.fromJson(e)).toList();
     return userdatalist;
   }
+
+  //phone based auth
+
 }
