@@ -2,9 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kist/Screens/phoneauth.dart';
 import 'package:kist/Screens/splashscreen/splash.dart';
+import 'package:kist/Services/Apiconnectservices.dart';
+import 'package:kist/Services/firebaseservices.dart';
+import 'package:kist/bloc/bloc/login_bloc.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -49,8 +53,28 @@ void main() async {
         path:
             'assets/translation', // <-- change the path of the translation files
         fallbackLocale: Locale('hi', ''),
-        child: MyApp()),
+        child: Blocdefine()),
   );
+}
+
+class Blocdefine extends StatelessWidget {
+  const Blocdefine({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(
+            create: (context) => ApiConnectService(),
+          ),
+          RepositoryProvider(
+            create: (context) => FirbaseServices(),
+          ),
+        ],
+        child: MultiBlocProvider(
+            providers: [BlocProvider(create: (context) => LoginBloc())],
+            child: MyApp()));
+  }
 }
 
 class MyApp extends StatelessWidget {
