@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: "Kist test project",
-      home: SplashScreen(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: const TextTheme(bodyText1: TextStyle(color: Colors.red)),
