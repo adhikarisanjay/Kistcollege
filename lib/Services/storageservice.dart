@@ -1,8 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Storage {
-  setloginstatus(value) async {
+  setloginstatus(status, token) async {
+    print(token);
     final pref = await SharedPreferences.getInstance();
+    pref.setBool("status", status);
+    pref.setString("token", token);
   }
 
   getLoginstatus() async {

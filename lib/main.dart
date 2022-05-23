@@ -4,11 +4,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get_it/get_it.dart';
 import 'package:kist/Screens/phoneauth.dart';
 import 'package:kist/Screens/splashscreen/splash.dart';
 import 'package:kist/Services/Apiconnectservices.dart';
 import 'package:kist/Services/firebaseservices.dart';
 import 'package:kist/bloc/bloc/login_bloc.dart';
+
+final getIt = GetIt.instance;
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -28,6 +31,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
+  getIt.registerSingleton<ApiConnectService>(ApiConnectService());
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
@@ -67,13 +71,10 @@ class Blocdefine extends StatelessWidget {
           RepositoryProvider(
             create: (context) => ApiConnectService(),
           ),
-          RepositoryProvider(
-            create: (context) => FirbaseServices(),
-          ),
         ],
-        child: MultiBlocProvider(
-            providers: [BlocProvider(create: (context) => LoginBloc())],
-            child: MyApp()));
+        child: MultiBlocProvider(providers: [
+          BlocProvider(create: (context) => LoginBloc()..add(Logininitial()))
+        ], child: MyApp()));
   }
 }
 

@@ -5,6 +5,7 @@ import 'package:kist/Screens/auth/loginpage.dart';
 import 'package:kist/Screens/homepage.dart';
 import 'package:kist/Screens/otpbasedlogin/otppage.dart';
 import 'package:kist/Screens/otpbasedlogin/phonescreen.dart';
+import 'package:kist/Screens/phoneauth.dart';
 import 'package:kist/component/buttonnavbar.dart';
 import 'package:kist/component/buttonnavbarnotch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
           (route) => false);
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => PhoneBasedAuth()),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
           (route) => false);
     }
   }
