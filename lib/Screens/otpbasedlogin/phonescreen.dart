@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:kist/Screens/otpbasedlogin/otppage.dart';
 import 'package:kist/Services/firebaseservices.dart';
-import 'package:kist/bloc/bloc/login_bloc.dart';
+import 'package:kist/bloc/loginbloc/login_bloc.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
 

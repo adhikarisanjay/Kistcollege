@@ -6,6 +6,8 @@ import 'package:kist/Screens/homepage.dart';
 import 'package:kist/Screens/otpbasedlogin/otppage.dart';
 import 'package:kist/Screens/otpbasedlogin/phonescreen.dart';
 import 'package:kist/Screens/phoneauth.dart';
+import 'package:kist/Services/storageservice.dart';
+import 'package:kist/authscreen/authscreen.dart';
 import 'package:kist/component/buttonnavbar.dart';
 import 'package:kist/component/buttonnavbarnotch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,10 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   checkloginstatus() async {
-    final pref = await SharedPreferences.getInstance();
-    setState(() {
-      loginstatus = pref.getBool("loginstatus");
-    });
+    loginstatus = await Storage().getLoginstatus();
+    print(loginstatus);
+    setState(() {});
   }
 
   timer() {
@@ -41,15 +42,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigationPage() {
-    if (loginstatus == true) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => ButtomNavBar1()),
-          (route) => false);
-    } else {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-          (route) => false);
-    }
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => AuthScreen()),
+        (route) => false);
+    // if (loginstatus == true) {
+    //   Navigator.of(context).pushAndRemoveUntil(
+    //       MaterialPageRoute(builder: (context) => ButtomNavBar1()),
+    //       (route) => false);
+    // } else {
+    //   Navigator.of(context).pushAndRemoveUntil(
+    //       MaterialPageRoute(builder: (context) => LoginScreen()),
+    //       (route) => false);
+    // }
   }
 
   @override

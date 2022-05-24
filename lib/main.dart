@@ -9,7 +9,11 @@ import 'package:kist/Screens/phoneauth.dart';
 import 'package:kist/Screens/splashscreen/splash.dart';
 import 'package:kist/Services/Apiconnectservices.dart';
 import 'package:kist/Services/firebaseservices.dart';
-import 'package:kist/bloc/bloc/login_bloc.dart';
+import 'package:kist/bloc/authbloc/bloc/checklogin_bloc.dart';
+import 'package:kist/bloc/loginbloc/login_bloc.dart';
+import 'package:kist/cubit/authuserdata/authuserdata_cubit.dart';
+import 'package:kist/cubit/category/category_cubit.dart';
+import 'package:kist/cubit/logincubit/logincubit_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -73,7 +77,14 @@ class Blocdefine extends StatelessWidget {
           ),
         ],
         child: MultiBlocProvider(providers: [
-          BlocProvider(create: (context) => LoginBloc()..add(Logininitial()))
+          BlocProvider(create: (context) => LoginBloc()..add(Logininitial())),
+          BlocProvider(
+              create: (context) => CheckloginBloc()..add(LoginStatusCheck())),
+          BlocProvider(create: (context) => LogincubitCubit()),
+          BlocProvider(
+              create: (context) => AuthuserdataCubit()..authuserCall()),
+          BlocProvider(
+              create: (context) => CategoryCubit()..fetchcategorydata())
         ], child: MyApp()));
   }
 }

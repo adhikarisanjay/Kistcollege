@@ -10,7 +10,13 @@ class Storage {
 
   getLoginstatus() async {
     final pref = await SharedPreferences.getInstance();
-    final status = pref.getBool("loginstatus");
+    final status = pref.getBool("status");
+    return status;
+  }
+
+  getLogintoken() async {
+    final pref = await SharedPreferences.getInstance();
+    final status = pref.getString("token");
     return status;
   }
 }

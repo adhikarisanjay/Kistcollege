@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kist/Screens/Samplearrayjson/jsonarray.dart';
+import 'package:kist/Screens/categoryhomepage/homepagecat.dart';
 import 'package:kist/Screens/homepage.dart';
 import 'package:kist/Screens/phoneauth.dart';
 import 'package:kist/Screens/samplejson/samplejson.dart';
@@ -84,7 +85,7 @@ class _ButtomNavBar1State extends State<ButtomNavBar1> {
         .then((token) => {print("devicetoken$token")});
   }
 
-  dynamic currentpage = HomePage();
+  dynamic currentpage = CatHomepage();
   Color color = primary;
   int currentindex = 0;
   int? index = 0;
@@ -120,7 +121,7 @@ class _ButtomNavBar1State extends State<ButtomNavBar1> {
                       setState(() {
                         currentindex = 0;
                         index = 0;
-                        currentpage = HomePage();
+                        currentpage = CatHomepage();
                       });
                     },
                     child: columnwidget(0, Icons.home, "Home", Colors.black)),

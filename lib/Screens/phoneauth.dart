@@ -5,7 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:kist/Services/Apiconnectservices.dart';
 import 'package:kist/Services/firebaseservices.dart';
-import 'package:kist/bloc/bloc/login_bloc.dart';
+import 'package:kist/bloc/loginbloc/login_bloc.dart';
+import 'package:kist/component/buttonnavbarnotch.dart';
+import 'package:kist/cubit/logincubit/logincubit_cubit.dart';
+import 'package:progress_state_button/iconed_button.dart';
+import 'package:progress_state_button/progress_button.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -25,27 +29,46 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passController = TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
-
+  var buttonstate = ButtonState.idle;
   //Place A
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
       padding: EdgeInsets.all(32),
-      child: BlocListener<LoginBloc, LoginState>(
+      child: BlocListener<LogincubitCubit, LogincubitState>(
         listener: (context, state) {
-          if (state is LoginInprocess) {}
-          if (state is LoginSuccess) {
-            print(state.logindata.firstName);
-            snackbar("success");
+          if (state is LogincubitButtonpressed) {
+            setState(() {
+              buttonstate = ButtonState.loading;
+            });
           }
+          if (state is LogincubitSuccess) {
+            snackbar("success");
+            setState(() {
+              buttonstate = ButtonState.success;
+            });
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => ButtomNavBar1()),
+                (route) => false);
+          }
+          if (state is LogincubitError) {
+            setState(() {
+              buttonstate = ButtonState.fail;
+            });
+          }
+          // if (state is LoginInprocess) {}
+          // if (state is LoginSuccess) {
+          //   print(state.logindata.firstName);
+          //   snackbar("success");
+          // }
 
-          if (state is LoginError) {}
+          // if (state is LoginError) {}
         },
         child: Form(
           key: _formkey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
@@ -114,24 +137,59 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 16,
               ),
-              Container(
-                width: double.infinity,
-                child: FlatButton(
-                  child: Text("Login"),
-                  textColor: Colors.white,
-                  padding: EdgeInsets.all(16),
-                  onPressed: () {
-                    print("login pressed");
-                    if (_formkey.currentState!.validate()) {
-                      BlocProvider.of<LoginBloc>(context).add(
-                          LoginButtonPressed(
-                              email: _emailcontroller.text,
-                              password: _passController.text));
-                    }
+
+              ProgressButton.icon(
+                  iconedButtons: {
+                    ButtonState.idle: IconedButton(
+                        text: "Send",
+                        icon: Icon(Icons.send, color: Colors.white),
+                        color: Colors.deepPurple.shade500),
+                    ButtonState.loading: IconedButton(
+                        text: "Loading", color: Colors.deepPurple.shade700),
+                    ButtonState.fail: IconedButton(
+                        text: "Failed",
+                        icon: Icon(Icons.cancel, color: Colors.white),
+                        color: Colors.red.shade300),
+                    ButtonState.success: IconedButton(
+                        text: "Success",
+                        icon: const Icon(
+                          Icons.check_circle,
+                          color: Colors.white,
+                        ),
+                        color: Colors.green.shade400)
                   },
-                  color: Colors.blue,
-                ),
-              )
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      // BlocProvider.of<LoginBloc>(context).add(
+                      //     LoginButtonPressed(
+                      //         email: _emailcontroller.text,
+                      //         password: _passController.text));
+                      BlocProvider.of<LogincubitCubit>(context).loginapicall(
+                          _emailcontroller.text, _passController.text);
+                    }
+                    print("state");
+                  },
+                  state: buttonstate),
+              // Container(
+              //   width: double.infinity,
+              //   child: FlatButton(
+              //     child: Text("Login"),
+              //     textColor: Colors.white,
+              //     padding: EdgeInsets.all(16),
+              //     onPressed: () {
+              //       print("login pressed");
+              //       if (_formkey.currentState!.validate()) {
+              //         // BlocProvider.of<LoginBloc>(context).add(
+              //         //     LoginButtonPressed(
+              //         //         email: _emailcontroller.text,
+              //         //         password: _passController.text));
+              //         BlocProvider.of<LogincubitCubit>(context).loginapicall(
+              //             _emailcontroller.text, _passController.text);
+              //       }
+              //     },
+              //     color: Colors.blue,
+              //   ),
+              // )
             ],
           ),
         ),
