@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -100,10 +101,27 @@ class _CatHomepageState extends State<CatHomepage> {
                                               "${state.categorydata[index].imagePath}",
                                               height: 50,
                                             )
-                                          : Image.network(
-                                              "${state.categorydata[index].imagePath}",
+                                          : CachedNetworkImage(
+                                              imageUrl:
+                                                  "${state.categorydata[index].imagePath}",
                                               height: 50,
+                                              progressIndicatorBuilder:
+                                                  (context, url,
+                                                          downloadProgress) =>
+                                                      Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        value: downloadProgress
+                                                            .progress),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
                                             ),
+                                      // : Image.network(
+                                      //     "${state.categorydata[index].imagePath}",
+                                      //     height: 50,
+                                      //   ),
                                       Text("Name :" +
                                           "${state.categorydata[index].title}"),
                                       Text("Description :" +

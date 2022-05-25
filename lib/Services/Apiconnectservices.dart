@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +13,35 @@ import 'package:kist/modal/samplejson.dart';
 import 'package:http/http.dart' as http;
 
 class ApiConnectService {
+// Global options
+  final optionsdata = CacheOptions(
+    // A default store is required for interceptor.
+    store: MemCacheStore(),
+
+    // All subsequent fields are optional.
+
+    // Default.
+    policy: CachePolicy.request,
+    // Returns a cached response on error but for statuses 401 & 403.
+    // Also allows to return a cached response on network errors (e.g. offline usage).
+    // Defaults to [null].
+    hitCacheOnErrorExcept: [401, 403],
+    // Overrides any HTTP directive to delete entry past this duration.
+    // Useful only when origin server has no cache config or custom behaviour is desired.
+    // Defaults to [null].
+    maxStale: const Duration(days: 7),
+    // Default. Allows 3 cache sets and ease cleanup.
+    priority: CachePriority.normal,
+    // Default. Body and headers encryption with your own algorithm.
+    cipher: null,
+    // Default. Key builder to retrieve requests.
+    keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+    // Default. Allows to cache POST requests.
+    // Overriding [keyBuilder] is strongly recommended when [true].
+    allowPostMethod: false,
+  );
+  DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
+
   Future<SampleJson?> fetchSamplejson() async {
     var jsondata = await rootBundle.loadString('assets/testjsonfile/data.json');
 
@@ -91,7 +122,9 @@ class ApiConnectService {
     print('token$token');
     print("service call");
     try {
-      var response = await Dio().get('http://10.0.2.2:8000/api/category',
+      final dio = Dio()
+        ..interceptors.add(DioCacheInterceptor(options: optionsdata));
+      var response = await dio.get('http://10.0.2.2:8000/api/category',
           options: Options(headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

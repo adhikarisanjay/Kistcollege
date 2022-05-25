@@ -54,6 +54,10 @@ dependencies:
   dio: ^4.0.6
   http: ^0.13.4
   image_picker: ^0.8.5+3
+  cached_network_image:
+  dio_http_cache: 
+  dio_cache_interceptor: ^3.2.7
+
 
 
 
