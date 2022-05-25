@@ -19,4 +19,9 @@ class Storage {
     final status = pref.getString("token");
     return status;
   }
+
+  logoutdata() async {
+    final pref = await SharedPreferences.getInstance();
+    final status = pref.clear();
+  }
 }

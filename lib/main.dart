@@ -14,6 +14,7 @@ import 'package:kist/bloc/loginbloc/login_bloc.dart';
 import 'package:kist/cubit/authuserdata/authuserdata_cubit.dart';
 import 'package:kist/cubit/category/category_cubit.dart';
 import 'package:kist/cubit/logincubit/logincubit_cubit.dart';
+import 'package:kist/cubit/storedata/storecategories_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -83,6 +84,7 @@ class Blocdefine extends StatelessWidget {
           BlocProvider(create: (context) => LogincubitCubit()),
           BlocProvider(
               create: (context) => AuthuserdataCubit()..authuserCall()),
+          BlocProvider(create: (context) => StorecategoriesCubit()),
           BlocProvider(
               create: (context) => CategoryCubit()..fetchcategorydata())
         ], child: MyApp()));

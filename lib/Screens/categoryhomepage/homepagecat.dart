@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kist/Screens/categoryhomepage/addcategories/addcategories.dart';
+import 'package:kist/Screens/phoneauth.dart';
+import 'package:kist/Services/storageservice.dart';
 import 'package:kist/cubit/category/category_cubit.dart';
 
 class CatHomepage extends StatefulWidget {
@@ -15,7 +17,43 @@ class _CatHomepageState extends State<CatHomepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home")),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Home"),
+            GestureDetector(
+                onTap: () {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Logout User '),
+                      content: const Text('Are you sure?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, 'Cancel');
+                            Storage().logoutdata();
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                                (route) => false);
+                          },
+                          child: const Text('yes'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: Icon(Icons.logout))
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Add your onPressed code here!
@@ -27,14 +65,19 @@ class _CatHomepageState extends State<CatHomepage> {
         backgroundColor: Colors.grey,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
             if (state is Categoryfetched) {
               return Container(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height * 0.82,
                 child: ListView.builder(
                     itemCount: state.categorydata.length,
                     itemBuilder: (context, index) {
+                      var result =
+                          state.categorydata[index].imagePath!.split(".");
+                      print("result${result.last}");
+
                       return Column(
                         children: [
                           Padding(
@@ -52,12 +95,15 @@ class _CatHomepageState extends State<CatHomepage> {
                                   width: MediaQuery.of(context).size.width,
                                   child: Column(
                                     children: [
-                                      SvgPicture.network(
-                                        "${state.categorydata[index].imagePath}",
-                                        height: 50,
-                                      ),
-                                      // Image.network(
-                                      //     "${state.categorydata[index].imagePath}"),
+                                      result.last == "svg"
+                                          ? SvgPicture.network(
+                                              "${state.categorydata[index].imagePath}",
+                                              height: 50,
+                                            )
+                                          : Image.network(
+                                              "${state.categorydata[index].imagePath}",
+                                              height: 50,
+                                            ),
                                       Text("Name :" +
                                           "${state.categorydata[index].title}"),
                                       Text("Description :" +

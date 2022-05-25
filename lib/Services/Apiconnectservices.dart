@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:kist/Services/storageservice.dart';
 import 'package:kist/modal/authuser.dart';
+import 'package:kist/modal/categories.dart';
 import 'package:kist/modal/categorymodal.dart';
 import 'package:kist/modal/logniresponsemodal.dart';
 import 'package:kist/modal/samplejson.dart';
@@ -105,6 +106,36 @@ class ApiConnectService {
     } catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  Future<Categoriesmodal?> categoriesstoreApi(title, desc, image) async {
+    var token = await Storage().getLogintoken();
+    print('imagedata$image');
+    print("service call");
+
+    var imagefile = MultipartFile.fromFileSync(
+      image,
+      filename: image.split("/")[image.split("/").length - 1],
+    );
+    FormData formdata = FormData.fromMap(
+        {"title": title, "description": desc, "image": imagefile});
+    print(formdata);
+
+    try {
+      var response = await Dio().post('http://10.0.2.2:8000/api/category',
+          data: formdata,
+          options: Options(headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          }));
+      print(response.data);
+
+      return Categoriesmodal.fromJson(response.data);
+    } catch (e) {
+      print(e.toString());
+      return Categoriesmodal.withError(e.toString());
     }
   }
 }
